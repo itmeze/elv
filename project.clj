@@ -1,4 +1,4 @@
-(defproject elv "0.1.0-SNAPSHOT"
+(defproject elv "0.1.0"
   :description "Exception logger and viewer for clojure's Ring based applications"
   :url "http://github.com/itmeze/elv"
   :license {:name "Eclipse Public License"
