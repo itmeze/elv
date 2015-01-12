@@ -7,13 +7,13 @@ Elv does 2 things:
 - **displays** logged exceptions on seperate page
 
 Elv offers a simple, yet configurable, **ring middleware** that will catch any exception thrown during processing of a request by a ring server. All of ring's request parameters will get logged.
-Beside that elv offers a neat functionality - a page that will list all logged exceptions:
+Beside that elv offers a neat functionality - a page that lists all logged exceptions:
 
 ![image](https://cloud.githubusercontent.com/assets/562298/5712412/76a0b3c0-9ab2-11e4-9088-8510cc8fac4f.png)
 
-As you can see, at the moment simply paging and exception details are offered. Searching and ordering of exceptions list is coming next.
+As you can see, at the moment simply paging and exception details are offered. Searching and ordering of exceptions is coming next.
 
-'Details' links takes you to the page with details of an exception (stacktrace) and request map.
+'Details' links takes you to the page with details of an exception (stacktrace) and request's map.
 
 ## Geting started
 
@@ -44,10 +44,10 @@ Elv offers **wrap-exception** middleware so the easiest would be to use it like 
   (-> your-handler (wrap-exception)))
 ```
 
-Wrap exception middleware offers following optional parameters:
+*wrap-exception* middleware offers following optional parameters:
 - :path - uri to the page that displays list of errors. By default it is "/log"
 - :storage - where execeptions are stored. By default those are stored in memory (more on seperate section)
-- :log-page-handler - handler for the :path - this is where your security check should go. By default elv limit access to local call only
+- :log-page-handler - handler for the :path - this is where your security check should go. By default elv limit access to local calls only
 
 ##Choosing storage
 
@@ -72,22 +72,21 @@ Another configurable aspect is a way to protect access to error logs. By default
 (require '[ring.middleware.basic-authentication :refer [wrap-basic-authentication]])
 
 (defn authenticated? [name pass]
-  (and (= name "foo")
-       (= pass "bar")))
+  (and (= name "your-name")
+       (= pass "your-password")))
        
 (def app
   (-> your-handler (wrap-exception :log-page-handler #(wrap-basic-authentication % authenticated?))))
 ```
 
 ##Pre-reading body
-Body part of the ring request is of some InputStream type (like org.eclipse.jetty.server.HttpInput if you use jetty). It may be read just once, so that at the moment when exception happens value of the body may differ from the one that was originally send. 
+Body part of the ring request is of InputStream type (like org.eclipse.jetty.server.HttpInput if you use jetty). It may be read just once, so at the moment when exception is trown value of the body may differ from the one that was originally send. 
 In order to preserve original value, elv provides 'body-pre-read-middleware', that will slurp request's body and save it under :pre-read-body key (keeping :body of the request as it was) .
 This is entirely optional:
 ``` clojure
 (def app
   (-> your-handler (wrap-exception) (body-pre-read-middleware)))
 ```
-
 
 ## License
 
