@@ -11,7 +11,7 @@ Beside that elv offers a neat functionality - a page that will list all logged e
 
 ![image](https://cloud.githubusercontent.com/assets/562298/5712412/76a0b3c0-9ab2-11e4-9088-8510cc8fac4f.png)
 
-As you can see, at the moment simply paging is offered. Searching and ordering of exceptions list is coming next.
+As you can see, at the moment simply paging and exception details are offered. Searching and ordering of exceptions list is coming next.
 
 'Details' links takes you to the page with details of an exception (stacktrace) and request map.
 
