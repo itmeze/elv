@@ -40,6 +40,7 @@ With Maven:
 Elv offers **wrap-exception** middleware so the easiest would be to use it like that:
 
 ``` clojure
+(require '[elv.core :refer :all])
 (def app
   (-> your-handler (wrap-exception)))
 ```
